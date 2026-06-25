@@ -1,0 +1,19 @@
+seed: 42
+
+save_dir: "./data/raw"
+
+datasets:
+
+  pubmedqa:
+    hf_name: "qiaojin/PubMedQA"
+    subset: "pqa_labeled"
+
+  cnn_dailymail:
+    hf_name: "cnn_dailymail"
+    subset: "3.0.0"
+
+  sciq:
+    hf_name: "sciq"
+
+  govreport:
+    hf_name: "ccdv/govreport-summarization"
