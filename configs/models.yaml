@@ -1,0 +1,180 @@
+################################################################################
+# Adaptive Knowledge Injection
+# Model Configuration
+#
+# Purpose:
+# Centralized configuration for all models used in the project.
+#
+# Covers:
+#   - LLMs
+#   - Embedding models
+#   - Rerankers
+#   - PEFT
+#   - Quantization
+#   - Generation
+#
+################################################################################
+
+################################################################################
+# General
+################################################################################
+
+seed: 42
+
+device: auto            # auto | cpu | cuda
+
+torch_dtype: auto       # auto | float16 | bfloat16 | float32
+
+################################################################################
+# Generator LLM
+################################################################################
+
+generator:
+
+  name: meta-llama/Llama-3.1-8B-Instruct
+
+  provider: huggingface
+
+  trust_remote_code: false
+
+  max_context_length: 8192
+
+  use_flash_attention: true
+
+################################################################################
+# Embedding Model
+################################################################################
+
+embedding:
+
+  name: BAAI/bge-base-en-v1.5
+
+  provider: huggingface
+
+  dimension: 768
+
+  normalize_embeddings: true
+
+################################################################################
+# Reranker
+################################################################################
+
+reranker:
+
+  enabled: true
+
+  name: BAAI/bge-reranker-base
+
+  provider: huggingface
+
+################################################################################
+# Parameter-Efficient Fine-Tuning (PEFT)
+################################################################################
+
+peft:
+
+  method: LoRA
+
+  task_type: CAUSAL_LM
+
+  inference_mode: false
+
+  r: 16
+
+  alpha: 32
+
+  dropout: 0.05
+
+  bias: none
+
+  target_modules:
+
+    - q_proj
+
+    - k_proj
+
+    - v_proj
+
+    - o_proj
+
+################################################################################
+# Quantization
+################################################################################
+
+quantization:
+
+  enabled: true
+
+  method: 4bit
+
+  load_in_4bit: true
+
+  bnb_4bit_quant_type: nf4
+
+  bnb_4bit_use_double_quant: true
+
+  bnb_4bit_compute_dtype: bfloat16
+
+################################################################################
+# Text Generation
+################################################################################
+
+generation:
+
+  max_new_tokens: 256
+
+  min_new_tokens: 1
+
+  temperature: 0.1
+
+  top_p: 0.95
+
+  top_k: 50
+
+  repetition_penalty: 1.1
+
+  do_sample: false
+
+################################################################################
+# Batch Configuration
+################################################################################
+
+batch:
+
+  inference_batch_size: 4
+
+  embedding_batch_size: 64
+
+################################################################################
+# Checkpoint Saving
+################################################################################
+
+checkpoint:
+
+  save_adapter_only: true
+
+  save_tokenizer: true
+
+  save_config: true
+
+################################################################################
+# Logging
+################################################################################
+
+logging:
+
+  log_model_summary: true
+
+  log_trainable_parameters: true
+
+################################################################################
+# Future Extensions
+################################################################################
+
+future:
+
+  enable_multi_llm: false
+
+  enable_model_ensemble: false
+
+  enable_moe: false

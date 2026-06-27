@@ -1,0 +1,242 @@
+################################################################################
+# Adaptive Knowledge Injection
+# Preprocessing Configuration
+#
+# Purpose:
+# Centralized preprocessing configuration for all datasets and experiments.
+#
+# This file controls:
+#   - Text normalization
+#   - Data cleaning
+#   - Tokenization
+#   - Document chunking
+#   - Dataset splitting
+#   - Low-resource simulation
+#
+################################################################################
+
+################################################################################
+# General
+################################################################################
+
+seed: 42
+
+language: "en"
+
+################################################################################
+# Text Cleaning
+################################################################################
+
+cleaning:
+
+  lowercase: false
+
+  strip_whitespace: true
+
+  normalize_unicode: true
+
+  remove_html: true
+
+  remove_urls: false
+
+  remove_emails: false
+
+  remove_extra_spaces: true
+
+  remove_empty_lines: true
+
+  remove_non_utf8: true
+
+################################################################################
+# Text Filtering
+################################################################################
+
+filtering:
+
+  min_characters: 20
+
+  max_characters: 50000
+
+  min_words: 5
+
+  remove_duplicates: true
+
+################################################################################
+# Tokenization
+################################################################################
+
+tokenization:
+
+  truncation: true
+
+  padding: false
+
+  return_attention_mask: true
+
+  return_token_type_ids: false
+
+################################################################################
+# Sequence Length
+################################################################################
+
+sequence:
+
+  max_input_tokens: 1024
+
+  max_target_tokens: 256
+
+################################################################################
+# Document Chunking
+################################################################################
+
+chunking:
+
+  enabled: true
+
+  strategy: recursive
+
+  chunk_size: 512
+
+  chunk_overlap: 128
+
+  separators:
+
+    - "\n\n"
+
+    - "\n"
+
+    - ". "
+
+    - " "
+
+################################################################################
+# Dataset Splits
+################################################################################
+
+splits:
+
+  train: 0.80
+
+  validation: 0.10
+
+  test: 0.10
+
+  shuffle: true
+
+################################################################################
+# Low-Resource Simulation
+################################################################################
+
+low_resource:
+
+  enabled: true
+
+  random_seed: 42
+
+  sampling_strategy: stratified
+
+  training_ratios:
+
+    - 1.00
+
+    - 0.50
+
+    - 0.20
+
+    - 0.10
+
+    - 0.05
+
+    - 0.01
+
+################################################################################
+# Question Answering
+################################################################################
+
+question_answering:
+
+  keep_context: true
+
+  keep_question: true
+
+  keep_answer: true
+
+  remove_unanswerable: false
+
+################################################################################
+# Summarization
+################################################################################
+
+summarization:
+
+  keep_document: true
+
+  keep_summary: true
+
+  remove_empty_summary: true
+
+################################################################################
+# Retrieval Preparation
+################################################################################
+
+retrieval:
+
+  build_passages: true
+
+  passage_source: context
+
+  include_metadata: true
+
+################################################################################
+# Metadata
+################################################################################
+
+metadata:
+
+  preserve_dataset_name: true
+
+  preserve_sample_id: true
+
+  preserve_task: true
+
+  preserve_domain: true
+
+################################################################################
+# Output
+################################################################################
+
+output:
+
+  format: parquet
+
+  compression: snappy
+
+  save_statistics: true
+
+  save_metadata: true
+
+################################################################################
+# Validation
+################################################################################
+
+validation:
+
+  validate_columns: true
+
+  validate_missing_values: true
+
+  validate_duplicates: true
+
+  validate_split_sizes: true
+
+################################################################################
+# Logging
+################################################################################
+
+logging:
+
+  report_every: 1000
+
+  save_cleaning_report: true
+
+  save_statistics_report: true

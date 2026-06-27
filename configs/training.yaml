@@ -1,0 +1,237 @@
+################################################################################
+# Adaptive Knowledge Injection
+# Training Configuration
+#
+# Purpose:
+# Centralized configuration for all model training experiments.
+#
+# Covers:
+#   - Training
+#   - Optimizer
+#   - Scheduler
+#   - Mixed Precision
+#   - Checkpointing
+#   - Early Stopping
+#   - Logging
+#   - Reproducibility
+#
+################################################################################
+
+################################################################################
+# General
+################################################################################
+
+seed: 42
+
+device: auto
+
+mixed_precision: bf16      # bf16 | fp16 | fp32
+
+deterministic: true
+
+################################################################################
+# Training
+################################################################################
+
+training:
+
+  num_epochs: 3
+
+  per_device_train_batch_size: 2
+
+  per_device_eval_batch_size: 4
+
+  gradient_accumulation_steps: 8
+
+  gradient_checkpointing: true
+
+  dataloader_num_workers: 2
+
+  pin_memory: true
+
+################################################################################
+# Optimizer
+################################################################################
+
+optimizer:
+
+  name: adamw_torch
+
+  learning_rate: 2e-4
+
+  weight_decay: 0.01
+
+  beta1: 0.9
+
+  beta2: 0.999
+
+  epsilon: 1e-8
+
+################################################################################
+# Learning Rate Scheduler
+################################################################################
+
+scheduler:
+
+  name: cosine
+
+  warmup_ratio: 0.10
+
+################################################################################
+# Gradient Control
+################################################################################
+
+gradient:
+
+  max_grad_norm: 1.0
+
+################################################################################
+# Evaluation
+################################################################################
+
+evaluation:
+
+  evaluation_strategy: epoch
+
+  save_strategy: epoch
+
+  logging_strategy: steps
+
+  logging_steps: 20
+
+################################################################################
+# Early Stopping
+################################################################################
+
+early_stopping:
+
+  enabled: true
+
+  patience: 2
+
+  metric: eval_loss
+
+  mode: min
+
+################################################################################
+# Checkpointing
+################################################################################
+
+checkpoint:
+
+  save_total_limit: 3
+
+  load_best_model_at_end: true
+
+  metric_for_best_model: eval_loss
+
+  greater_is_better: false
+
+################################################################################
+# Reproducibility
+################################################################################
+
+reproducibility:
+
+  seed_everything: true
+
+  cudnn_deterministic: true
+
+  cudnn_benchmark: false
+
+################################################################################
+# Experiment Tracking
+################################################################################
+
+tracking:
+
+  experiment_name: AdaptiveKnowledgeInjection
+
+  save_training_history: true
+
+  save_predictions: true
+
+  save_metrics: true
+
+################################################################################
+# Resource Monitoring
+################################################################################
+
+resources:
+
+  log_gpu_memory: true
+
+  log_training_time: true
+
+################################################################################
+# Hyperparameter Search
+################################################################################
+
+hyperparameter_search:
+
+  enabled: false
+
+  method: grid
+
+  search_space:
+
+    learning_rate:
+
+      - 1e-5
+      - 2e-5
+      - 5e-5
+      - 1e-4
+      - 2e-4
+
+    lora_rank:
+
+      - 8
+      - 16
+      - 32
+
+    batch_size:
+
+      - 1
+      - 2
+      - 4
+
+################################################################################
+# Low-Resource Experiments
+################################################################################
+
+low_resource:
+
+  training_ratios:
+
+    - 1.00
+    - 0.50
+    - 0.20
+    - 0.10
+    - 0.05
+    - 0.01
+
+################################################################################
+# Output
+################################################################################
+
+output:
+
+  save_final_model: true
+
+  save_adapter_only: true
+
+  save_tokenizer: true
+
+  save_training_config: true
+
+################################################################################
+# Logging
+################################################################################
+
+logging:
+
+  report_to:
+
+    - tensorboard
+
+  disable_tqdm: false
