@@ -164,7 +164,8 @@ Summarization
 * CNN/DailyMail
 * GovReport
 
-Additional datasets may be incorporated during the study.
+Additional datasets are out of scope for the active benchmark unless a future
+documented research decision expands the configuration.
 
 ---
 

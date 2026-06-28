@@ -2,70 +2,39 @@
 # Adaptive Knowledge Injection
 # Evaluation Configuration
 #
-# Purpose:
-# Centralized configuration for evaluating retrieval, QA, summarization,
-# hallucination, efficiency, and statistical significance.
-#
+# Ownership:
+#   - task metrics
+#   - retrieval metrics
+#   - hallucination metrics
+#   - efficiency metrics
+#   - statistical significance settings
 ################################################################################
-
-################################################################################
-# General
-################################################################################
-
-seed: 42
 
 save_predictions: true
-
 save_metrics: true
-
 save_reports: true
 
-################################################################################
-# Evaluation Tasks
-################################################################################
-
 tasks:
-
   question_answering: true
-
   summarization: true
 
-################################################################################
-# Question Answering Metrics
-################################################################################
-
 question_answering:
-
   metrics:
-
     - exact_match
     - f1
     - bertscore
 
-################################################################################
-# Summarization Metrics
-################################################################################
-
 summarization:
-
   metrics:
-
     - rouge1
     - rouge2
     - rougeL
     - bleu
     - bertscore
 
-################################################################################
-# Retrieval Metrics
-################################################################################
-
 retrieval:
-
   enabled: true
-
   metrics:
-
     - recall@1
     - recall@3
     - recall@5
@@ -74,161 +43,64 @@ retrieval:
     - map
     - ndcg
 
-################################################################################
-# Hallucination Evaluation
-################################################################################
-
 hallucination:
-
   enabled: true
-
   metrics:
-
     - faithfulness
     - context_precision
     - context_recall
 
-################################################################################
-# Efficiency Evaluation
-################################################################################
-
 efficiency:
-
   enabled: true
-
   metrics:
-
     - inference_latency
     - throughput
     - gpu_memory
     - model_size
 
-################################################################################
-# Statistical Significance
-################################################################################
-
 statistics:
-
   enabled: true
-
   significance_level: 0.05
-
   multiple_testing_correction: holm
-
   tests:
-
     paired_t_test: true
-
     wilcoxon_signed_rank: true
-
     bootstrap_confidence_interval: true
-
     mcnemar: false
-
   effect_size:
-
     cohens_d: true
 
-################################################################################
-# Confidence Interval
-################################################################################
-
 confidence_interval:
-
   enabled: true
-
   confidence_level: 0.95
-
   bootstrap_samples: 1000
 
-################################################################################
-# Error Analysis
-################################################################################
-
 error_analysis:
-
   enabled: true
-
   save_failed_predictions: true
-
   max_examples: 200
 
-################################################################################
-# Cross-Dataset Evaluation
-################################################################################
-
 cross_dataset:
-
   enabled: true
 
-################################################################################
-# Low-Resource Evaluation
-################################################################################
-
-low_resource:
-
-  training_ratios:
-
-    - 1.00
-    - 0.50
-    - 0.20
-    - 0.10
-    - 0.05
-    - 0.01
-
-################################################################################
-# Leaderboard
-################################################################################
-
 leaderboard:
-
   ranking_metric:
-
     question_answering: f1
-
     summarization: rougeL
 
-################################################################################
-# Visualization
-################################################################################
-
 visualization:
-
   confusion_matrix: false
-
   metric_bar_plot: true
-
   radar_plot: true
-
   box_plot: true
-
   learning_curve: true
 
-################################################################################
-# Output
-################################################################################
-
 output:
-
   save_tables: true
-
   save_figures: true
-
   save_json: true
-
   save_csv: true
 
-################################################################################
-# Logging
-################################################################################
-
 logging:
-
   save_evaluation_log: true
-
   verbose: true
-
-# Three evaluation dimensions beyond traditional accuracy metrics
-# 1. Calibration: Expected Calibration Error (ECE) + Brier Score
-# 2. Robustness: Adversarial Accuracy + Perturbation Sensitivity
-# 3. Cost and Efficiency: Inference Latency + Throughput + GPU Memory Usage

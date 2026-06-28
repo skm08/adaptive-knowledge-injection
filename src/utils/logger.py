@@ -1,259 +1,168 @@
 """
-================================================================================
-Project : Adaptive Knowledge Injection
-File    : logger.py
-Author  : Research Repository
-Version : 1.0.0
-
-Centralized logging utility.
-
-Features
---------
-✓ Console logging
-✓ File logging
-✓ Timestamped log files
-✓ Automatic log directory creation
-✓ Duplicate handler protection
-✓ Custom logger names
-✓ Multiple log levels
-✓ Exception logging
-✓ Thread-safe (Python logging module)
-
-================================================================================
+Project: Adaptive Knowledge Injection
+Module: src.utils.logger
+Purpose: Provide centralized, reusable logging for repository modules.
+Dependencies: logging, pathlib
+Author: Adaptive Knowledge Injection Research
+Version: 1.0.0
 """
 
 from __future__ import annotations
 
 import logging
 import sys
-
-from pathlib import Path
 from datetime import datetime
-from typing import Optional
+from pathlib import Path
+
+
+LOG_FORMAT = "[%(asctime)s] [%(levelname)-8s] [%(name)s] %(message)s"
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+DEFAULT_LOG_DIR = Path("outputs/logs")
+
+
+class LoggerError(Exception):
+    """Raised when a logger cannot be configured."""
 
 
 class LoggerFactory:
-    """
-    Factory class for creating reusable loggers.
+    """Factory for creating consistently configured project loggers."""
 
-    Example
-    -------
-    >>> logger = LoggerFactory.get_logger(
-            name="Downloader"
-        )
+    @staticmethod
+    def _resolve_level(level: int | str) -> int:
+        """Resolve a logging level from an integer or string value.
 
-    >>> logger.info("Downloading dataset...")
-    """
+        Args:
+            level:
+                Logging level as an integer or a standard logging level name.
 
-    LOG_FORMAT = (
-        "[%(asctime)s] "
-        "[%(levelname)-8s] "
-        "[%(name)s] "
-        "%(message)s"
-    )
+        Returns:
+            Numeric logging level.
 
-    DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+        Raises:
+            LoggerError: If the string level is not recognized.
+        """
 
-    DEFAULT_LEVEL = logging.INFO
+        if isinstance(level, int):
+            return level
+
+        level_name = level.upper()
+        resolved_level = logging.getLevelName(level_name)
+
+        if isinstance(resolved_level, int):
+            return resolved_level
+
+        raise LoggerError(f"Unknown logging level: {level}")
 
     @classmethod
     def get_logger(
         cls,
         name: str,
-        log_dir: Optional[str] = None,
-        level: int = DEFAULT_LEVEL,
+        log_dir: str | Path | None = None,
+        level: int | str = logging.INFO,
+        log_to_file: bool = True,
     ) -> logging.Logger:
-        """
-        Create or retrieve a configured logger.
+        """Create or retrieve a configured logger.
 
-        Parameters
-        ----------
-        name : str
-            Logger name.
+        Args:
+            name:
+                Logger name, usually `__name__`.
+            log_dir:
+                Directory for log files. Defaults to `outputs/logs`.
+            level:
+                Logging level as an integer or string.
+            log_to_file:
+                Whether to attach a timestamped file handler.
 
-        log_dir : str
-            Directory where log files are saved.
-
-        level : int
-            Logging level.
-
-        Returns
-        -------
-        logging.Logger
+        Returns:
+            Configured logger instance.
         """
 
+        resolved_level = cls._resolve_level(level)
         logger = logging.getLogger(name)
-
-        # Avoid duplicate handlers
-        if logger.handlers:
-            return logger
-
-        logger.setLevel(level)
-
-        formatter = logging.Formatter(
-            cls.LOG_FORMAT,
-            cls.DATE_FORMAT,
-        )
-
-        ####################################################
-        # Console Handler
-        ####################################################
-
-        console_handler = logging.StreamHandler(sys.stdout)
-
-        console_handler.setLevel(level)
-
-        console_handler.setFormatter(formatter)
-
-        logger.addHandler(console_handler)
-
-        ####################################################
-        # File Handler
-        ####################################################
-
-        if log_dir is None:
-            log_dir = "outputs/logs"
-
-        log_directory = Path(log_dir)
-
-        log_directory.mkdir(
-            parents=True,
-            exist_ok=True,
-        )
-
-        timestamp = datetime.now().strftime(
-            "%Y%m%d_%H%M%S"
-        )
-
-        log_file = log_directory / f"{name}_{timestamp}.log"
-
-        file_handler = logging.FileHandler(
-            log_file,
-            encoding="utf-8",
-        )
-
-        file_handler.setLevel(level)
-
-        file_handler.setFormatter(formatter)
-
-        logger.addHandler(file_handler)
-
+        logger.setLevel(resolved_level)
         logger.propagate = False
 
-        logger.info("=" * 70)
-        logger.info("Logger initialized")
-        logger.info(f"Logger Name : {name}")
-        logger.info(f"Log File    : {log_file}")
-        logger.info("=" * 70)
+        if logger.handlers:
+            for handler in logger.handlers:
+                handler.setLevel(resolved_level)
+            return logger
+
+        formatter = logging.Formatter(LOG_FORMAT, DATE_FORMAT)
+
+        console_handler = logging.StreamHandler(sys.stdout)
+        console_handler.setLevel(resolved_level)
+        console_handler.setFormatter(formatter)
+        logger.addHandler(console_handler)
+
+        if log_to_file:
+            target_dir = Path(log_dir) if log_dir is not None else DEFAULT_LOG_DIR
+            target_dir.mkdir(parents=True, exist_ok=True)
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            safe_name = name.replace(".", "_")
+            log_file = target_dir / f"{safe_name}_{timestamp}.log"
+
+            file_handler = logging.FileHandler(log_file, encoding="utf-8")
+            file_handler.setLevel(resolved_level)
+            file_handler.setFormatter(formatter)
+            logger.addHandler(file_handler)
 
         return logger
 
 
 def get_logger(
     name: str,
-    log_dir: Optional[str] = None,
-    level: int = logging.INFO,
+    log_dir: str | Path | None = None,
+    level: int | str = logging.INFO,
+    log_to_file: bool = True,
 ) -> logging.Logger:
-    """
-    Convenience wrapper.
+    """Return a configured project logger.
 
-    Example
-    -------
-    >>> logger = get_logger("Downloader")
+    Args:
+        name:
+            Logger name, usually `__name__`.
+        log_dir:
+            Directory for timestamped log files.
+        level:
+            Logging level as an integer or string.
+        log_to_file:
+            Whether to attach a timestamped file handler.
+
+    Returns:
+        Configured logger instance.
     """
 
     return LoggerFactory.get_logger(
         name=name,
         log_dir=log_dir,
         level=level,
+        log_to_file=log_to_file,
     )
 
 
-def log_exception(
-    logger: logging.Logger,
-    exception: Exception,
-) -> None:
-    """
-    Log exception with traceback.
+def log_exception(logger: logging.Logger, exception: Exception) -> None:
+    """Log an exception with traceback.
 
-    Parameters
-    ----------
-    logger : logging.Logger
-
-    exception : Exception
+    Args:
+        logger:
+            Logger used to emit the exception.
+        exception:
+            Exception instance to log.
     """
 
-    logger.exception(
-        f"Exception occurred: {exception}"
-    )
+    logger.exception("Exception occurred: %s", exception)
 
 
-def banner(
-    logger: logging.Logger,
-    text: str,
-) -> None:
-    """
-    Print a banner inside logs.
+def log_section(logger: logging.Logger, title: str) -> None:
+    """Log a readable section separator.
 
-    Example
-    -------
-    ===============================
-    DATA DOWNLOAD STARTED
-    ===============================
+    Args:
+        logger:
+            Logger used to emit the section.
+        title:
+            Section title.
     """
 
-    line = "=" * 70
-
+    line = "-" * 70
     logger.info(line)
-    logger.info(text)
-    logger.info(line)
-
-
-def section(
-    logger: logging.Logger,
-    title: str,
-) -> None:
-    """
-    Log section title.
-    """
-
-    logger.info("")
-    logger.info("-" * 70)
     logger.info(title)
-    logger.info("-" * 70)
-
-
-if __name__ == "__main__":
-
-    logger = get_logger("LoggerDemo")
-
-    banner(
-        logger,
-        "LOGGER TEST",
-    )
-
-    logger.info("Information message.")
-
-    logger.warning("Warning message.")
-
-    logger.error("Error message.")
-
-    section(
-        logger,
-        "Example Section",
-    )
-
-    logger.info("Logger is working correctly.")
-
-    try:
-
-        x = 10 / 0
-
-    except Exception as e:
-
-        log_exception(
-            logger,
-            e,
-        )
-
-    logger.info("Logger test finished.")
+    logger.info(line)

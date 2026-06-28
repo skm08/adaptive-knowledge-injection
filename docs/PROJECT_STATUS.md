@@ -4,384 +4,150 @@
 
 **Repository Version:** v0.1.0
 
-**Status:** 🟡 Active Development
+**Status:** Active Development
 
-**Last Updated:** 2026-06-27
+**Last Updated:** 2026-06-28
 
 ---
 
 # Executive Summary
 
 This repository implements a unified research framework for comparing
+Retrieval-Augmented Generation, Parameter-Efficient Fine-Tuning, and Hybrid
+Adaptation for low-resource knowledge-intensive language tasks.
 
-- Retrieval-Augmented Generation (RAG)
-- Parameter-Efficient Fine-Tuning (PEFT)
-- Hybrid Adaptation
-
-for low-resource knowledge-intensive language tasks.
-
-Current development focuses on building a modular, reproducible, and publication-ready research framework before running large-scale experiments.
+The architecture is finalized. Current work is limited to repository foundation
+cleanup before implementation of dataset, preprocessing, retrieval, model,
+evaluation, experiment, or notebook logic.
 
 ---
 
 # Overall Progress
 
 | Phase | Status | Progress |
-|--------|--------|---------:|
-| Research Planning | ✅ Completed | 100% |
-| Methodology Design | ✅ Completed | 100% |
-| Repository Design | ✅ Completed | 100% |
-| Documentation | 🟡 In Progress | 95% |
-| Configuration | ✅ Completed | 100% |
-| Utility Layer | 🟡 In Progress | 40% |
-| Dataset Pipeline | ⬜ Not Started | 0% |
-| Preprocessing | ⬜ Not Started | 0% |
-| Retrieval Pipeline | ⬜ Not Started | 0% |
-| Model Development | ⬜ Not Started | 0% |
-| Evaluation | ⬜ Not Started | 0% |
-| Experiments | ⬜ Not Started | 0% |
-| Statistical Analysis | ⬜ Not Started | 0% |
-| Manuscript Writing | ⬜ Not Started | 0% |
-
----
-
-# Current Milestone
-
-## Milestone 1
-
-Repository Foundation
-
-Objective
-
-Complete repository infrastructure before implementation.
-
-Status
-
-🟡 In Progress
-
-Expected Outcome
-
-- Stable repository architecture
-- Configuration system
-- Utility modules
-- Documentation completed
+| --- | --- | ---: |
+| Research Planning | Completed | 100% |
+| Methodology Design | Completed | 100% |
+| Repository Design | Completed | 100% |
+| Documentation | Completed | 100% |
+| Configuration | Completed | 100% |
+| Repository Hygiene | Completed | 100% |
+| Utility Foundation | In Progress | 40% |
+| Dataset Pipeline | Not Started | 0% |
+| Preprocessing | Not Started | 0% |
+| Retrieval Pipeline | Not Started | 0% |
+| Model Development | Not Started | 0% |
+| Evaluation | Not Started | 0% |
+| Experiments | Not Started | 0% |
+| Statistical Analysis | Not Started | 0% |
+| Manuscript Writing | Not Started | 0% |
 
 ---
 
 # Completed Work
 
-## Research
+## Repository Foundation
 
-- ✅ Literature-gap analysis
-- ✅ Research objectives
-- ✅ Research questions
-- ✅ Hypotheses
-- ✅ Contributions
-- ✅ Novelty claims
-- ✅ Experimental methodology
-- ✅ Experiment matrix
-- ✅ Baseline selection
-- ✅ Evaluation protocol
-
----
-
-## Repository
-
-- ✅ Repository structure designed
-- ✅ Development workflow defined
-- ✅ Modular architecture finalized
-
----
+- Repository structure finalized.
+- Root README restored.
+- MIT license added.
+- `.gitignore` added.
+- `requirements.txt`, `environment.yml`, and `pyproject.toml` added.
+- Generated Python cache artifacts removed from the working tree.
+- Package `__init__.py` files added for clean imports.
+- `outputs/metrics/` added to match documented output structure.
 
 ## Configuration
 
-Completed YAML files
+Configuration ownership has been normalized:
 
-- ✅ datasets.yaml
-- ✅ preprocessing.yaml
-- ✅ models.yaml
-- ✅ retrieval.yaml
-- ✅ training.yaml
-- ✅ evaluation.yaml
-
----
-
-## Documentation
-
-Completed
-
-- ✅ README.md
-- ✅ CODING_STANDARD.md
-- ✅ DESIGN_DECISIONS.md
-- ✅ PROJECT_STATUS.md
-- ✅ TODO.md
-- ✅ EXPERIMENTS.md
-- ✅ REPOSITORY_MAP.md
-- ✅ PAPER_PLAN.md
-- ✅ PROMPTS.md
-- ✅ SESSION_CONTEXT.md
-- ✅ CHANGELOG.md
-
----
+- `datasets.yaml`: dataset registry, paths, splits, low-resource ratios
+- `preprocessing.yaml`: cleaning, filtering, tokenization, validation
+- `models.yaml`: generator, quantization, generation, inference batch size
+- `retrieval.yaml`: chunking, embedding, reranker, vector store, top-k
+- `training.yaml`: seed, optimizer, scheduler, batch sizes, LoRA settings
+- `evaluation.yaml`: metrics, hallucination, efficiency, statistics
 
 ## Utilities
 
-Completed
+Completed:
 
-- ✅ config.py
-- ✅ logger.py
+- `src/utils/config.py`
+- `src/utils/logger.py`
 
-Pending
+Pending:
 
-- ⬜ io.py
-- ⬜ seed.py
-- ⬜ constants.py
-
----
-
-# Current Repository Structure
-
-```
-adaptive-knowledge-injection/
-
-configs/
-docs/
-notebooks/
-src/
-tests/
-outputs/
-data/
-checkpoints/
-scripts/
-```
-
-Repository architecture is considered stable.
+- `src/utils/io.py`
+- `src/utils/seed.py`
+- `src/utils/constants.py`
 
 ---
 
-# Immediate Priorities
+# Standardized Dataset Selection
 
-Priority 1
-
-Complete utility layer
-
-Remaining
-
-- io.py
-- seed.py
-- constants.py
-
----
-
-Priority 2
-
-Implement dataset pipeline
-
-Modules
-
-- downloader.py
-- validator.py
-- loader.py
-
----
-
-Priority 3
-
-Implement preprocessing pipeline
-
-Modules
-
-- schema.py
-- cleaner.py
-- splitter.py
-
----
-
-# Planned Development Order
-
-```
-Utilities
-
-↓
-
-Datasets
-
-↓
-
-Preprocessing
-
-↓
-
-Retrieval
-
-↓
-
-Models
-
-↓
-
-Evaluation
-
-↓
-
-Experiments
-
-↓
-
-Notebooks
-```
-
-This order should not change unless approved through `DESIGN_DECISIONS.md`.
-
----
-
-# Research Configuration
-
-## Primary Tasks
-
-- Question Answering
-- Summarization
-
----
-
-## Knowledge Injection Methods
-
-- Retrieval-Augmented Generation
-- Parameter-Efficient Fine-Tuning
-- Hybrid Adaptation
-
----
-
-## Planned Datasets
-
-Question Answering
+Question Answering:
 
 - PubMedQA
-- BioASQ
 - SciQ
 
-Summarization
+Summarization:
 
 - CNN/DailyMail
-- XSum
+- GovReport
+
+No other datasets are part of the active repository configuration.
 
 ---
 
 # Current Technical Stack
 
-Language
-
-- Python 3.11+
-
-Frameworks
-
+- Python 3.11
 - PyTorch
 - Transformers
 - PEFT
 - Accelerate
 - FAISS
-- LangChain
+- Hugging Face Datasets/Evaluate
 - Sentence Transformers
+- LangChain text splitters
 
-Execution
+Execution targets:
 
 - Google Colab
-
-Version Control
-
-- Git
-- GitHub
-
----
-
-# Outstanding Decisions
-
-No unresolved architectural decisions.
-
-Future architectural changes must be documented in:
-
-- DESIGN_DECISIONS.md
-- REPOSITORY_MAP.md
-- CHANGELOG.md
-
----
-
-# Known Risks
-
-Research
-
-- Dataset quality differences
-- Retrieval bias
-- Hallucination effects
-
-Technical
-
-- Google Colab resource limitations
-- Large checkpoint storage
-- Long experiment runtimes
-
-Mitigation
-
-- Frequent checkpointing
-- Deterministic seeds
-- Configuration snapshots
-- Comprehensive experiment logging
-
----
-
-# Success Criteria
-
-The repository will be considered complete when:
-
-- All modules are implemented.
-- All experiments are reproducible.
-- Statistical validation is completed.
-- Publication-quality figures and tables are generated.
-- The manuscript is ready for submission.
-- The repository can reproduce published results from a clean environment.
+- Local Conda development
 
 ---
 
 # Next Action
 
-Implement
+After review approval, continue the utility layer in this order:
 
-```
-src/utils/io.py
-```
+1. `src/utils/io.py`
+2. `src/utils/seed.py`
+3. `src/utils/constants.py`
 
-After completion
+Do not implement dataset, preprocessing, retrieval, model, evaluation,
+experiment, or notebook modules until the utility foundation is approved.
 
-1. seed.py
-2. constants.py
-3. datasets/downloader.py
+---
+
+# Known Risks
+
+- Python is not currently available from the local PowerShell command path.
+- Large experiments will depend on Colab GPU availability.
+- Long-running experiments require careful checkpointing and configuration snapshots.
 
 ---
 
 # Repository Health
 
 | Component | Status |
-|-----------|--------|
-| Architecture | ✅ Stable |
-| Documentation | 🟡 Nearly Complete |
-| Configuration | ✅ Complete |
-| Codebase | 🟡 Initial Development |
-| Testing | ⬜ Not Started |
-| Experiments | ⬜ Not Started |
-| Reproducibility | 🟡 Foundation Ready |
-| Publication Readiness | 🟡 Planning Complete |
-
----
-
-# Notes
-
-This document is a high-level project dashboard.
-
-Update it whenever:
-
-- A development phase is completed.
-- A major architectural decision changes.
-- Repository milestones are reached.
-- The current implementation priority changes.
-
-Detailed implementation history belongs in `CHANGELOG.md`, while day-to-day work belongs in `SESSION_CONTEXT.md`.
+| --- | --- |
+| Architecture | Stable |
+| Documentation | Complete |
+| Configuration | Complete |
+| Environment Metadata | Complete |
+| Utility Foundation | In Progress |
+| Testing | Not Started |
+| Experiments | Not Started |
+| Publication Readiness | Planning Complete |

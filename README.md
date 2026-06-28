@@ -1,94 +1,65 @@
-adaptive-knowledge-injection/
-│
-├── checkpoints/
-│
-├── configs/
-│   ├── datasets.yaml
-│   ├── models.yaml
-│   ├── retrieval.yaml
-│   ├── training.yaml
-│   ├── evaluation.yaml
-│   └── preprocessing.yaml
-│
-├── data/
-│   ├── raw/
-│   ├── interim/
-│   ├── processed/
-│   └── splits/
-│
-├── docs/
-│   ├── PROJECT_STATUS.md
-│   ├── TODO.md
-│   ├── DESIGN_DECISIONS.md
-│   ├── REPOSITORY_MAP.md
-│   ├── CODING_STANDARD.md
-│   ├── EXPERIMENTS.md
-│   ├── CHANGELOG.md
-│   ├── PROMPTS.md
-│   └── PAPER_PLAN.md
-│
-├── notebooks/
-│   ├── 01_environment.ipynb
-│   ├── 02_prepare_data.ipynb
-│   ├── 03_build_rag.ipynb
-│   ├── 04_train_peft.ipynb
-│   ├── 05_build_hybrid.ipynb
-│   ├── 06_run_experiments.ipynb
-│   └── 07_analysis.ipynb
-│
-├── outputs/
-│   ├── logs/
-│   ├── figures/
-│   ├── tables/
-│   ├── predictions/
-│   └── reports/
-│
-├── scripts/
-│
-├── src/
-│   ├── datasets/
-│   │   ├── downloader.py
-│   │   ├── loader.py
-│   │   └── validator.py
-│   │
-│   ├── preprocessing/
-│   │   ├── cleaner.py
-│   │   ├── splitter.py
-│   │   └── schema.py
-│   │
-│   ├── retrieval/
-│   │   ├── retriever.py
-│   │   ├── vector_store.py
-│   │   └── chunking.py
-│   │
-│   ├── models/
-│   │   ├── base_model.py
-│   │   ├── rag.py
-│   │   ├── peft.py
-│   │   └── hybrid.py
-│   │
-│   ├── evaluation/
-│   │   ├── metrics.py
-│   │   ├── hallucination.py
-│   │   └── statistics.py
-│   │
-│   ├── experiments/
-│   │   ├── run_rag.py
-│   │   ├── run_peft.py
-│   │   ├── run_hybrid.py
-│   │   └── run_full_benchmark.py
-│   │
-│   └── utils/
-│       ├── config.py
-│       ├── io.py
-│       ├── logger.py
-│       ├── seed.py
-│       └── constants.py
-│
-├── tests/
-│
-├── .gitignore
-├── LICENSE
-├── README.md
-├── requirements.txt
-└── environment.yml
+# Adaptive Knowledge Injection
+
+Adaptive Knowledge Injection for Low-Resource Knowledge-Intensive Language Tasks
+is a research repository for comparing Retrieval-Augmented Generation (RAG),
+Parameter-Efficient Fine-Tuning (PEFT), and Hybrid Adaptation.
+
+The repository targets reproducible Q1-journal experiments for:
+
+- Question Answering: PubMedQA and SciQ
+- Summarization: CNN/DailyMail and GovReport
+
+## Architecture
+
+The architecture is documentation-driven and intentionally modular:
+
+```text
+configs/
+src/utils/
+src/datasets/
+src/preprocessing/
+src/retrieval/
+src/models/
+src/evaluation/
+src/experiments/
+notebooks/
+```
+
+Business logic belongs in `src/`. Notebooks are reserved for execution,
+visualization, and analysis.
+
+## Configuration
+
+All configurable values are stored in YAML files under `configs/`.
+
+- `datasets.yaml`: dataset registry, data paths, splits, low-resource ratios
+- `preprocessing.yaml`: cleaning, filtering, tokenization, output validation
+- `models.yaml`: generator model, quantization, generation settings
+- `retrieval.yaml`: chunking, embedding, reranking, vector store, top-k
+- `training.yaml`: seed, optimizer, scheduler, batch sizes, LoRA settings
+- `evaluation.yaml`: task, retrieval, hallucination, efficiency, statistics metrics
+
+## Current Status
+
+The repository foundation is being prepared before implementation of dataset,
+retrieval, model, evaluation, and experiment modules. See `docs/PROJECT_STATUS.md`
+and `docs/TODO.md` for the active roadmap.
+
+## Installation
+
+For local Conda development:
+
+```bash
+conda env create -f environment.yml
+conda activate adaptive-knowledge-injection
+```
+
+For pip-based environments:
+
+```bash
+pip install -r requirements.txt
+```
+
+## License
+
+This project is released under the MIT License. See `LICENSE`.

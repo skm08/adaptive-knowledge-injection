@@ -34,7 +34,30 @@ Use the following categories whenever possible:
 
 ## Added
 
-* Placeholder for ongoing development.
+* Restored root `README.md`.
+* Added MIT `LICENSE`.
+* Added `.gitignore` rules for caches, generated data, checkpoints, and outputs.
+* Added `requirements.txt` for pip and Google Colab-compatible environments.
+* Added `environment.yml` for local Conda development.
+* Added `pyproject.toml` with packaging and formatting metadata.
+* Added package `__init__.py` files for clean imports.
+* Added `.gitkeep` files for documented artifact directories, including
+  `outputs/metrics/`.
+* Restored `src/utils/logger.py` as the centralized logging utility.
+
+## Changed
+
+* Normalized configuration ownership across YAML files.
+* Moved LoRA hyperparameters to `configs/training.yaml`.
+* Standardized retrieval model keys to use `embedding.model` and
+  `reranker.model`.
+* Standardized active datasets to PubMedQA, SciQ, CNN/DailyMail, and GovReport.
+* Updated project status, TODO, and session context to remove contradictory
+  foundation status statements.
+
+## Removed
+
+* Removed generated Python cache artifacts from `src/utils/__pycache__/`.
 
 ---
 

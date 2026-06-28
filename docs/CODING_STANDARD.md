@@ -312,7 +312,7 @@ AutoModel.from_pretrained("model")
 Instead
 
 ```python
-config.generator.name
+config.generator.model
 ```
 
 -------------------------------------------------------------------------------

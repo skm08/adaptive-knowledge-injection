@@ -1,51 +1,46 @@
 """
-config.py
-
-Centralized configuration management for the
-Adaptive Knowledge Injection project.
-
-Features
---------
-- YAML configuration loading
-- Dot-notation access
-- Nested configuration support
-- Validation
-- Singleton-style access
-- Reproducibility friendly
-
-Author: Research Repository
+Project: Adaptive Knowledge Injection
+Module: src.utils.config
+Purpose: Load YAML configuration files with dot-notation access.
+Dependencies: pathlib, yaml
+Author: Adaptive Knowledge Injection Research
+Version: 1.0.0
 """
 
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any
+
 import yaml
 
 
 class ConfigError(Exception):
     """Custom exception for configuration-related errors."""
-    pass
 
 
 class ConfigNode:
-    """
-    Enables dot notation access.
+    """Dictionary wrapper that enables dot-notation configuration access."""
 
-    Example
-    -------
-    config.datasets.pubmedqa.hf_name
-    """
-
-    def __init__(self, data: Dict[str, Any]) -> None:
+    def __init__(self, data: dict[str, Any]) -> None:
         self._data = data
 
     def __getattr__(self, item: str) -> Any:
+        """Return nested configuration values as attributes.
+
+        Args:
+            item:
+                Configuration key.
+
+        Returns:
+            Raw value or nested `ConfigNode`.
+
+        Raises:
+            AttributeError: If the key does not exist.
+        """
 
         if item not in self._data:
-            raise AttributeError(
-                f"Configuration key '{item}' not found."
-            )
+            raise AttributeError(f"Configuration key '{item}' not found.")
 
         value = self._data[item]
 
@@ -55,9 +50,13 @@ class ConfigNode:
         return value
 
     def __getitem__(self, item: str) -> Any:
+        """Return a configuration value by key."""
+
         return self._data[item]
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -> dict[str, Any]:
+        """Return the underlying dictionary."""
+
         return self._data
 
     def __repr__(self) -> str:
@@ -65,57 +64,45 @@ class ConfigNode:
 
 
 class ConfigManager:
-    """
-    Main configuration manager.
-
-    Usage
-    -----
-
-    config = ConfigManager()
-
-    config.load_yaml("configs/datasets.yaml")
-
-    print(config.datasets.pubmedqa.hf_name)
-    """
+    """Load and store named YAML configuration files."""
 
     def __init__(self) -> None:
-        self._configs: Dict[str, ConfigNode] = {}
+        self._configs: dict[str, ConfigNode] = {}
 
     def load_yaml(
         self,
         config_path: str | Path,
-        config_name: Optional[str] = None
+        config_name: str | None = None,
     ) -> ConfigNode:
-        """
-        Load YAML configuration file.
+        """Load a YAML configuration file.
 
-        Parameters
-        ----------
-        config_path : str | Path
-            Path to YAML file.
+        Args:
+            config_path:
+                Path to the YAML file.
+            config_name:
+                Optional alias. Defaults to the file stem.
 
-        config_name : Optional[str]
-            Alias name for configuration.
+        Returns:
+            Loaded configuration node.
 
-        Returns
-        -------
-        ConfigNode
+        Raises:
+            FileNotFoundError: If the configuration file is missing.
+            ConfigError: If the YAML file is empty or not a mapping.
         """
 
         config_path = Path(config_path)
 
         if not config_path.exists():
-            raise FileNotFoundError(
-                f"Config file not found: {config_path}"
-            )
+            raise FileNotFoundError(f"Config file not found: {config_path}")
 
-        with open(config_path, "r", encoding="utf-8") as file:
+        with config_path.open("r", encoding="utf-8") as file:
             config_data = yaml.safe_load(file)
 
         if config_data is None:
-            raise ConfigError(
-                f"Empty configuration file: {config_path}"
-            )
+            raise ConfigError(f"Empty configuration file: {config_path}")
+
+        if not isinstance(config_data, dict):
+            raise ConfigError(f"Configuration must be a mapping: {config_path}")
 
         config_node = ConfigNode(config_data)
 
@@ -127,25 +114,36 @@ class ConfigManager:
         return config_node
 
     def get(self, name: str) -> ConfigNode:
+        """Return a previously loaded configuration by name.
+
+        Args:
+            name:
+                Configuration alias.
+
+        Returns:
+            Loaded configuration node.
+
+        Raises:
+            ConfigError: If the configuration has not been loaded.
+        """
 
         if name not in self._configs:
-            raise ConfigError(
-                f"Configuration '{name}' has not been loaded."
-            )
+            raise ConfigError(f"Configuration '{name}' has not been loaded.")
 
         return self._configs[name]
 
     def list_configs(self) -> list[str]:
+        """Return names of loaded configurations."""
+
         return list(self._configs.keys())
 
     def clear(self) -> None:
+        """Clear all loaded configurations."""
+
         self._configs.clear()
 
     def __repr__(self) -> str:
-        return (
-            f"ConfigManager("
-            f"loaded_configs={self.list_configs()})"
-        )
+        return f"ConfigManager(loaded_configs={self.list_configs()})"
 
 
 config_manager = ConfigManager()
@@ -153,32 +151,32 @@ config_manager = ConfigManager()
 
 def load_config(
     config_path: str | Path,
-    config_name: Optional[str] = None
+    config_name: str | None = None,
 ) -> ConfigNode:
+    """Load a YAML configuration through the shared manager.
+
+    Args:
+        config_path:
+            Path to the YAML file.
+        config_name:
+            Optional alias. Defaults to the file stem.
+
+    Returns:
+        Loaded configuration node.
     """
-    Convenience wrapper.
 
-    Example
-    -------
-
-    cfg = load_config(
-        "configs/datasets.yaml"
-    )
-
-    print(cfg.seed)
-    """
-
-    return config_manager.load_yaml(
-        config_path=config_path,
-        config_name=config_name
-    )
+    return config_manager.load_yaml(config_path=config_path, config_name=config_name)
 
 
-def get_config(
-    config_name: str
-) -> ConfigNode:
-    """
-    Retrieve previously loaded configuration.
+def get_config(config_name: str) -> ConfigNode:
+    """Retrieve a previously loaded configuration.
+
+    Args:
+        config_name:
+            Configuration alias.
+
+    Returns:
+        Loaded configuration node.
     """
 
     return config_manager.get(config_name)

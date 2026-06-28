@@ -61,6 +61,12 @@ Optional Conda environment specification.
 
 ---
 
+## pyproject.toml
+
+Python packaging, tool configuration, and formatting metadata.
+
+---
+
 # checkpoints/
 
 Purpose
@@ -699,7 +705,7 @@ Every new component should follow these principles before being merged.
 
 Potential additions without changing the architecture:
 
-* Additional datasets
+* Additional approved datasets
 * New embedding models
 * Alternative vector databases
 * New PEFT methods (e.g., QLoRA, AdaLoRA)

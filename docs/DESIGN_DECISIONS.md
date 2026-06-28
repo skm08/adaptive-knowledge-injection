@@ -145,11 +145,8 @@ Primary:
 * PubMedQA
 * SciQ
 
-Future candidates:
-
-* BioASQ
-* MedMCQA
-* Natural Questions (domain-filtered)
+Only these question answering datasets are active in the repository
+configuration.
 
 ---
 
@@ -160,10 +157,7 @@ Primary:
 * CNN/DailyMail
 * GovReport
 
-Future candidates:
-
-* XSum
-* PubMed Summarization
+Only these summarization datasets are active in the repository configuration.
 
 ---
 
@@ -555,6 +549,8 @@ Any modifications should be documented here before implementation changes are ma
 | 2026-06-27 | Selected FAISS as default vector store            | Efficient, lightweight, reproducible               |
 | 2026-06-27 | Selected LoRA as default PEFT method              | Strong balance of efficiency and performance       |
 | 2026-06-27 | Adopted YAML-driven configuration                 | Improves reproducibility and experiment management |
+| 2026-06-28 | Standardized active datasets to PubMedQA, SciQ, CNN/DailyMail, and GovReport | Keeps the initial benchmark focused and reproducible |
+| 2026-06-28 | Normalized configuration ownership across YAML files | Reduces duplicate sources of truth before implementation |
 
 ---
 

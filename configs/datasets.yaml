@@ -2,210 +2,95 @@
 # Adaptive Knowledge Injection
 # Dataset Configuration
 #
-# This file contains all public datasets used throughout the project.
-# Only modify this file when adding/removing datasets.
-################################################################################
-
-################################################################################
-# Global Configuration
+# Ownership:
+#   - dataset registry
+#   - dataset storage paths
+#   - train/validation/test splits
+#   - low-resource training ratios
 ################################################################################
 
 project:
   name: AdaptiveKnowledgeInjection
   version: "1.0.0"
 
-seed: 42
-
-################################################################################
-# Directory Configuration
-################################################################################
-
 paths:
-
   raw_data: data/raw
-
-  processed_data: data/processed
-
   interim_data: data/interim
-
+  processed_data: data/processed
   split_data: data/splits
 
-################################################################################
-# Default Download Options
-################################################################################
-
 download:
-
   overwrite: false
-
   verification_mode: basic
-
   num_proc: 4
 
-################################################################################
-# Data Split Ratios
-################################################################################
-
 splits:
-
   train: 0.80
-
   validation: 0.10
-
   test: 0.10
-
-################################################################################
-# Data Scarcity Levels
-################################################################################
-
-scarcity:
-
-  levels:
-
-    - 1.00
-
-    - 0.50
-
-    - 0.20
-
-    - 0.10
-
-    - 0.05
-
-    - 0.01
-
-################################################################################
-# Dataset Registry
-################################################################################
-
-datasets:
-
-################################################################################
-# PubMedQA
-################################################################################
-
-  pubmedqa:
-
-    enabled: true
-
-    task: question_answering
-
-    domain: biomedical
-
-    source: huggingface
-
-    hf_dataset: qiaojin/PubMedQA
-
-    subset: pqa_labeled
-
-    text_column: question
-
-    target_column: long_answer
-
-    context_column: context
-
-    id_column: pubid
-
-################################################################################
-# SciQ
-################################################################################
-
-  sciq:
-
-    enabled: true
-
-    task: question_answering
-
-    domain: science
-
-    source: huggingface
-
-    hf_dataset: sciq
-
-    subset: null
-
-    text_column: question
-
-    target_column: correct_answer
-
-    context_column: support
-
-    id_column: null
-
-################################################################################
-# CNN / DailyMail
-################################################################################
-
-  cnn_dailymail:
-
-    enabled: true
-
-    task: summarization
-
-    domain: news
-
-    source: huggingface
-
-    hf_dataset: cnn_dailymail
-
-    subset: "3.0.0"
-
-    text_column: article
-
-    target_column: highlights
-
-    context_column: null
-
-    id_column: null
-
-################################################################################
-# GovReport
-################################################################################
-
-  govreport:
-
-    enabled: true
-
-    task: summarization
-
-    domain: government
-
-    source: huggingface
-
-    hf_dataset: ccdv/govreport-summarization
-
-    subset: null
-
-    text_column: report
-
-    target_column: summary
-
-    context_column: null
-
-    id_column: null
-
-################################################################################
-# Experiment Defaults
-################################################################################
-
-experiment:
-
   shuffle: true
-
   stratified_sampling: true
 
-  random_seed: 42
+low_resource:
+  training_ratios:
+    - 1.00
+    - 0.50
+    - 0.20
+    - 0.10
+    - 0.05
+    - 0.01
 
-################################################################################
-# Metadata
-################################################################################
+datasets:
+  pubmedqa:
+    enabled: true
+    task: question_answering
+    domain: biomedical
+    source: huggingface
+    hf_dataset: qiaojin/PubMedQA
+    subset: pqa_labeled
+    text_column: question
+    target_column: long_answer
+    context_column: context
+    id_column: pubid
+
+  sciq:
+    enabled: true
+    task: question_answering
+    domain: science
+    source: huggingface
+    hf_dataset: sciq
+    subset: null
+    text_column: question
+    target_column: correct_answer
+    context_column: support
+    id_column: null
+
+  cnn_dailymail:
+    enabled: true
+    task: summarization
+    domain: news
+    source: huggingface
+    hf_dataset: cnn_dailymail
+    subset: "3.0.0"
+    text_column: article
+    target_column: highlights
+    context_column: null
+    id_column: null
+
+  govreport:
+    enabled: true
+    task: summarization
+    domain: government
+    source: huggingface
+    hf_dataset: ccdv/govreport-summarization
+    subset: null
+    text_column: report
+    target_column: summary
+    context_column: null
+    id_column: null
 
 metadata:
-
   author: Adaptive Knowledge Injection Research
-
   language: en
-
   encoding: utf-8
-
   save_format: parquet

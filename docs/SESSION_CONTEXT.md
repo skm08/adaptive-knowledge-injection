@@ -4,27 +4,24 @@
 
 **Purpose:** Working memory for the current development session.
 
-**Last Updated:** 2026-06-27
+**Last Updated:** 2026-06-28
 
 ---
 
 # Current Phase
 
-**Phase 1 — Repository Infrastructure**
+Repository Foundation Cleanup
 
 Status:
 
-🟡 In Progress
+Completed pending user review.
 
 ---
 
 # Current Goal
 
-Finalize repository documentation and configuration before beginning large-scale Python implementation.
-
-Primary objective:
-
-Prepare a complete, reproducible repository specification for implementation by Codex.
+Prepare the repository for implementation without changing the finalized
+architecture.
 
 ---
 
@@ -32,7 +29,12 @@ Prepare a complete, reproducible repository specification for implementation by 
 
 Utilities
 
-Next target:
+Completed:
+
+- `src/utils/config.py`
+- `src/utils/logger.py`
+
+Next target after review approval:
 
 ```text
 src/utils/io.py
@@ -46,285 +48,107 @@ src/utils/io.py
 main
 ```
 
-Update this if working on a feature branch.
-
-Example
-
-```text
-feature/retrieval
-```
-
 ---
 
 # Repository Status
 
+## Foundation
+
+Completed:
+
+- Root README restored.
+- MIT license added.
+- `.gitignore` added.
+- `requirements.txt` added.
+- `environment.yml` added.
+- `pyproject.toml` added.
+- Package `__init__.py` files added.
+- Python cache artifacts removed.
+- `outputs/metrics/` added.
+
 ## Configuration
 
-Completed
+Completed:
 
-* datasets.yaml
-* preprocessing.yaml
-* models.yaml
-* retrieval.yaml
-* training.yaml
-* evaluation.yaml
+- `datasets.yaml`
+- `preprocessing.yaml`
+- `models.yaml`
+- `retrieval.yaml`
+- `training.yaml`
+- `evaluation.yaml`
 
----
+Configuration ownership is normalized.
 
 ## Documentation
 
-Completed
+Completed:
 
-* README.md
-* CODING_STANDARD.md
-* DESIGN_DECISIONS.md
-* PROJECT_STATUS.md
-* TODO.md
-* EXPERIMENTS.md
-* PROMPTS.md
-* SESSION_CONTEXT.md
-
-Pending
-
-* REPOSITORY_MAP.md
-* PAPER_PLAN.md
-* CHANGELOG.md
+- `README.md`
+- `CODING_STANDARD.md`
+- `DESIGN_DECISIONS.md`
+- `PROJECT_STATUS.md`
+- `REPOSITORY_MAP.md`
+- `TODO.md`
+- `EXPERIMENTS.md`
+- `PROMPTS.md`
+- `SESSION_CONTEXT.md`
+- `CHANGELOG.md`
+- `PAPER_PLAN.md`
 
 ---
 
-## Utilities
+# Active Dataset Selection
 
-Completed
+Question Answering:
 
-* config.py
-* logger.py
+- PubMedQA
+- SciQ
 
-Pending
+Summarization:
 
-* io.py
-* seed.py
-* constants.py
-
----
-
-# Current Repository Priority
-
-The next implementation order should remain:
-
-```text
-src/utils/
-
-↓
-
-datasets/
-
-↓
-
-preprocessing/
-
-↓
-
-retrieval/
-
-↓
-
-models/
-
-↓
-
-evaluation/
-
-↓
-
-experiments/
-
-↓
-
-notebooks/
-```
-
-Do not change this order unless there is a documented architectural reason.
+- CNN/DailyMail
+- GovReport
 
 ---
 
 # Active Decisions
 
-Current generator model
-
-```text
-meta-llama/Llama-3.1-8B-Instruct
-```
-
-Embedding model
-
-```text
-BAAI/bge-base-en-v1.5
-```
-
-Vector database
-
-```text
-FAISS
-```
-
-PEFT
-
-```text
-LoRA
-```
-
-Quantization
-
-```text
-4-bit NF4
-```
-
-Primary tasks
-
-* Question Answering
-* Summarization
-
----
-
-# Files Modified This Session
-
-Documentation
-
-* README.md
-* CODING_STANDARD.md
-* DESIGN_DECISIONS.md
-* PROJECT_STATUS.md
-* TODO.md
-* EXPERIMENTS.md
-* PROMPTS.md
-* SESSION_CONTEXT.md
-
-Configuration
-
-* preprocessing.yaml
-* models.yaml
-* retrieval.yaml
-* training.yaml
-* evaluation.yaml
-
-Python
-
-* src/utils/config.py
-* src/utils/logger.py
-
----
-
-# Outstanding Issues
-
-None at this stage.
-
-Future implementation should validate:
-
-* YAML loading
-* Configuration schemas
-* Logger integration
-* Path handling
-* Deterministic behavior
-
----
-
-# Known Risks
-
-* Repository scope is large.
-* Google Colab GPU availability may vary.
-* Long-running experiments require checkpointing.
-* Hybrid implementation should not duplicate RAG or PEFT logic.
-
----
-
-# Coding Reminders
-
-Every new Python module must:
-
-* Follow `CODING_STANDARD.md`.
-* Use YAML configuration.
-* Use `config.py`.
-* Use `logger.py`.
-* Use `pathlib.Path`.
-* Include type hints.
-* Include Google-style docstrings.
-* Avoid hardcoded values.
-* Be independently testable.
+- Generator model: `meta-llama/Llama-3.1-8B-Instruct`
+- Embedding model: `BAAI/bge-base-en-v1.5`
+- Reranker: `BAAI/bge-reranker-base`
+- Vector database: FAISS
+- PEFT method: LoRA
+- Quantization: 4-bit NF4
+- Primary tasks: Question Answering and Summarization
 
 ---
 
 # Immediate Next Tasks
 
-1. Generate `REPOSITORY_MAP.md`.
-2. Generate `PAPER_PLAN.md`.
-3. Generate `CHANGELOG.md`.
-4. Implement `src/utils/io.py`.
-5. Implement `src/utils/seed.py`.
-6. Implement `src/utils/constants.py`.
+After user review approval:
+
+1. Implement `src/utils/io.py`.
+2. Implement `src/utils/seed.py`.
+3. Implement `src/utils/constants.py`.
+4. Add utility tests.
+
+Do not implement dataset, preprocessing, retrieval, model, evaluation,
+experiment, or notebook modules before utility approval.
+
+---
+
+# Outstanding Issues
+
+- Local `python` and `py` commands are not available from the current PowerShell
+  path, so Python-based validation could not be executed locally.
 
 ---
 
 # Handoff Instructions
 
-When starting the next ChatGPT or Codex session:
+At the beginning of the next session:
 
-1. Read:
-
-   * README.md
-   * DESIGN_DECISIONS.md
-   * CODING_STANDARD.md
-   * PROJECT_STATUS.md
-   * REPOSITORY_MAP.md
-   * TODO.md
-   * EXPERIMENTS.md
-   * PROMPTS.md
-   * SESSION_CONTEXT.md
-
-2. Summarize the current repository state.
-
-3. Confirm the next module to implement.
-
-4. Do not redesign the architecture without updating `DESIGN_DECISIONS.md`.
-
----
-
-# Session Summary
-
-Completed during this session:
-
-* Finalized core YAML configuration.
-* Established documentation standards.
-* Defined AI collaboration protocol.
-* Prepared implementation roadmap.
-* Completed foundational project documentation.
-
-The repository is now ready to transition from planning to implementation.
-
----
-
-# End-of-Session Checklist
-
-Before ending today's work:
-
-* [ ] Commit completed files to Git.
-* [ ] Update `CHANGELOG.md`.
-* [ ] Update `PROJECT_STATUS.md`.
-* [ ] Review `TODO.md`.
-* [ ] Confirm the next implementation target.
-* [ ] Push changes to GitHub (if applicable).
-
----
-
-# Notes
-
-This file should remain concise and current.
-
-Whenever development focus changes:
-
-* Update the **Current Goal**.
-* Update the **Current Working Module**.
-* Update the **Files Modified This Session**.
-* Update the **Outstanding Issues**.
-* Update the **Immediate Next Tasks**.
-
-Treat this file as the project's "working memory" rather than a permanent record.
+1. Read the required repository documentation.
+2. Confirm the user has approved foundation cleanup.
+3. Continue with `src/utils/io.py` only if approved.
+4. Preserve the finalized architecture.

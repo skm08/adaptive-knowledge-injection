@@ -6,385 +6,148 @@
 
 ---
 
-# Progress Legend
+# Phase 0 - Research Planning
 
-* ⬜ Not Started
-* 🟡 In Progress
-* ✅ Completed
-* ⏸️ On Hold
-
----
-
-# Phase 0 — Research Planning
-
-## Literature
-
-* [x] Literature review
-* [x] Gap analysis
-* [x] Research questions
-* [x] Hypotheses
-* [x] Contributions
-* [x] Novelty claims
+- [x] Literature review
+- [x] Gap analysis
+- [x] Research questions
+- [x] Hypotheses
+- [x] Contributions
+- [x] Novelty claims
+- [x] Experimental design
+- [x] Dataset selection
+- [x] Experiment matrix
+- [x] Ablation study plan
+- [x] Statistical analysis plan
 
 ---
 
-## Methodology
+# Phase 1 - Repository Foundation
 
-* [x] Experimental design
-* [x] Dataset selection
-* [x] Experiment matrix
-* [x] Ablation study plan
-* [x] Statistical analysis plan
-
----
-
-# Phase 1 — Repository Infrastructure
-
-## Repository
-
-* [x] Repository structure
-* [x] Folder hierarchy
-* [ ] GitHub repository initialization
-* [ ] .gitignore
-* [ ] LICENSE
-* [ ] environment.yml
+- [x] Repository structure
+- [x] Folder hierarchy
+- [x] Root README
+- [x] `.gitignore`
+- [x] MIT `LICENSE`
+- [x] `requirements.txt`
+- [x] `environment.yml`
+- [x] `pyproject.toml`
+- [x] Package `__init__.py` files
+- [x] Remove generated Python cache artifacts
+- [x] Add documented `outputs/metrics/` directory
 
 ---
 
-## Configuration Files
+# Phase 2 - Configuration
 
-* [x] datasets.yaml
-* [x] preprocessing.yaml
-* [x] models.yaml
-* [x] retrieval.yaml
-* [x] training.yaml
-* [x] evaluation.yaml
-
----
-
-## Documentation
-
-* [x] README.md
-* [x] CODING_STANDARD.md
-* [x] DESIGN_DECISIONS.md
-* [x] PROJECT_STATUS.md
-
-Remaining:
-
-* [ ] REPOSITORY_MAP.md
-* [ ] PAPER_PLAN.md
-* [ ] EXPERIMENTS.md
-* [ ] CHANGELOG.md
-* [ ] PROMPTS.md
+- [x] `datasets.yaml`
+- [x] `preprocessing.yaml`
+- [x] `models.yaml`
+- [x] `retrieval.yaml`
+- [x] `training.yaml`
+- [x] `evaluation.yaml`
+- [x] Normalize configuration ownership
+- [x] Standardize datasets to PubMedQA, SciQ, CNN/DailyMail, and GovReport
 
 ---
 
-# Phase 2 — Utility Layer
+# Phase 3 - Documentation
 
-Implementation order is important.
-
-## Utilities
-
-* [x] config.py
-* [x] logger.py
-
-Next:
-
-* [ ] io.py
-* [ ] seed.py
-* [ ] constants.py
-
-Checkpoint:
-
-* [ ] Utility module testing
+- [x] `README.md`
+- [x] `CODING_STANDARD.md`
+- [x] `DESIGN_DECISIONS.md`
+- [x] `PROJECT_STATUS.md`
+- [x] `REPOSITORY_MAP.md`
+- [x] `TODO.md`
+- [x] `EXPERIMENTS.md`
+- [x] `PAPER_PLAN.md`
+- [x] `PROMPTS.md`
+- [x] `SESSION_CONTEXT.md`
+- [x] `CHANGELOG.md`
 
 ---
 
-# Phase 3 — Dataset Pipeline
+# Phase 4 - Utility Layer
 
-## Dataset Management
+Completed:
 
-Implementation order:
+- [x] `src/utils/config.py`
+- [x] `src/utils/logger.py`
 
-* [ ] downloader.py
-* [ ] validator.py
-* [ ] loader.py
+Next after review approval:
 
-Checkpoint:
-
-* [ ] Download all datasets
-* [ ] Verify dataset integrity
-* [ ] Store raw datasets
+- [ ] `src/utils/io.py`
+- [ ] `src/utils/seed.py`
+- [ ] `src/utils/constants.py`
+- [ ] Utility module tests
 
 ---
 
-# Phase 4 — Preprocessing
+# Phase 5 - Dataset Pipeline
 
-Implementation order:
-
-* [ ] schema.py
-* [ ] cleaner.py
-* [ ] splitter.py
-
-Checkpoint:
-
-* [ ] Generate processed datasets
-* [ ] Generate low-resource subsets
+- [ ] `src/datasets/downloader.py`
+- [ ] `src/datasets/validator.py`
+- [ ] `src/datasets/loader.py`
+- [ ] Download configured datasets
+- [ ] Verify dataset integrity
+- [ ] Store raw datasets
 
 ---
 
-# Phase 5 — Retrieval Pipeline
+# Phase 6 - Preprocessing
 
-Implementation order:
-
-* [ ] chunking.py
-* [ ] vector_store.py
-* [ ] retriever.py
-
-Checkpoint:
-
-* [ ] Build FAISS index
-* [ ] Validate retrieval quality
-* [ ] Save retrieval artifacts
+- [ ] `src/preprocessing/schema.py`
+- [ ] `src/preprocessing/cleaner.py`
+- [ ] `src/preprocessing/splitter.py`
+- [ ] Generate processed datasets
+- [ ] Generate low-resource subsets
 
 ---
 
-# Phase 6 — Model Implementation
+# Phase 7 - Retrieval Pipeline
 
-## Base Components
-
-* [ ] base_model.py
-
----
-
-## Retrieval-Augmented Generation
-
-* [ ] rag.py
+- [ ] `src/retrieval/chunking.py`
+- [ ] `src/retrieval/vector_store.py`
+- [ ] `src/retrieval/retriever.py`
+- [ ] Build FAISS index
+- [ ] Validate retrieval quality
 
 ---
 
-## Parameter-Efficient Fine-Tuning
+# Phase 8 - Model Implementation
 
-* [ ] peft.py
-
----
-
-## Hybrid Adaptation
-
-* [ ] hybrid.py
-
-Checkpoint:
-
-* [ ] Validate inference pipeline
+- [ ] `src/models/base_model.py`
+- [ ] `src/models/rag.py`
+- [ ] `src/models/peft.py`
+- [ ] `src/models/hybrid.py`
+- [ ] Validate inference pipeline
 
 ---
 
-# Phase 7 — Evaluation
+# Phase 9 - Evaluation
 
-Implementation order:
-
-* [ ] metrics.py
-* [ ] hallucination.py
-* [ ] statistics.py
-
-Checkpoint:
-
-* [ ] Validate evaluation pipeline
+- [ ] `src/evaluation/metrics.py`
+- [ ] `src/evaluation/hallucination.py`
+- [ ] `src/evaluation/statistics.py`
+- [ ] Validate evaluation pipeline
 
 ---
 
-# Phase 8 — Experiment Pipeline
+# Phase 10 - Experiment Pipeline
 
-Implementation order:
-
-* [ ] run_rag.py
-* [ ] run_peft.py
-* [ ] run_hybrid.py
-* [ ] run_full_benchmark.py
-
-Checkpoint:
-
-* [ ] Run baseline experiments
-
----
-
-# Phase 9 — Notebooks
-
-Implementation order:
-
-* [ ] 01_environment.ipynb
-* [ ] 02_prepare_data.ipynb
-* [ ] 03_build_rag.ipynb
-* [ ] 04_train_peft.ipynb
-* [ ] 05_build_hybrid.ipynb
-* [ ] 06_run_experiments.ipynb
-* [ ] 07_analysis.ipynb
-
----
-
-# Phase 10 — Research Experiments
-
-## Baselines
-
-* [ ] RAG
-* [ ] PEFT
-
----
-
-## Proposed Method
-
-* [ ] Hybrid Adaptation
-
----
-
-## Low-Resource Evaluation
-
-Training ratios:
-
-* [ ] 100%
-* [ ] 50%
-* [ ] 20%
-* [ ] 10%
-* [ ] 5%
-* [ ] 1%
-
----
-
-## Retrieval Ablation
-
-* [ ] Dense Retrieval
-* [ ] BM25
-* [ ] Hybrid Retrieval
-
----
-
-## Chunking Ablation
-
-* [ ] 256 / 64
-* [ ] 512 / 128
-* [ ] 1024 / 256
-
----
-
-## LoRA Ablation
-
-* [ ] Rank 8
-* [ ] Rank 16
-* [ ] Rank 32
-
----
-
-## Embedding Ablation
-
-* [ ] BGE
-* [ ] E5
-* [ ] GTE
-
----
-
-# Phase 11 — Statistical Analysis
-
-* [ ] Aggregate metrics
-* [ ] Generate confidence intervals
-* [ ] Paired t-test
-* [ ] Wilcoxon Signed-Rank Test
-* [ ] Cohen's d
-* [ ] Bootstrap analysis
-
----
-
-# Phase 12 — Visualization
-
-* [ ] Performance tables
-* [ ] Retrieval plots
-* [ ] Ablation figures
-* [ ] Statistical comparison plots
-* [ ] Publication-ready figures
-
----
-
-# Phase 13 — Manuscript Preparation
-
-## Writing
-
-* [ ] Abstract
-* [ ] Introduction
-* [ ] Related Work
-* [ ] Methodology
-* [ ] Experimental Setup
-* [ ] Results
-* [ ] Discussion
-* [ ] Conclusion
-
----
-
-## Supplementary Material
-
-* [ ] Appendix
-* [ ] Reproducibility checklist
-* [ ] Hyperparameter tables
-* [ ] Repository release
-
----
-
-# Phase 14 — Submission
-
-* [ ] Internal review
-* [ ] Final proofreading
-* [ ] Prepare cover letter
-* [ ] Select target journal
-* [ ] Submit manuscript
+- [ ] `src/experiments/run_rag.py`
+- [ ] `src/experiments/run_peft.py`
+- [ ] `src/experiments/run_hybrid.py`
+- [ ] `src/experiments/run_full_benchmark.py`
 
 ---
 
 # Current Sprint
 
-## Goal
+Prepare the repository foundation for implementation without changing the
+finalized architecture.
 
-Complete the repository specification and begin implementation of the utility layer.
+Current status:
 
-Priority tasks:
-
-1. Finish remaining documentation.
-2. Initialize the GitHub repository.
-3. Implement `src/utils/io.py`.
-4. Implement `src/utils/seed.py`.
-5. Implement `src/utils/constants.py`.
-
----
-
-# Notes
-
-## Development Workflow
-
-ChatGPT:
-
-* Research supervision
-* Architecture
-* Documentation
-* Code review
-
-Codex:
-
-* Python implementation
-* Refactoring
-* Testing support
-
-Google Colab:
-
-* Experiment execution
-* Training
-* Evaluation
-* Visualization
-
----
-
-# Completion Criteria
-
-The project is considered complete when:
-
-* All modules are implemented.
-* All experiments are reproducible.
-* Statistical analysis is finished.
-* The manuscript is prepared for Q1 journal submission.
-* The repository is ready for public release with documentation and reproducible workflows.
+- Foundation cleanup complete.
+- Awaiting review before continuing with `src/utils/io.py`.
