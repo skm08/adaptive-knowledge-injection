@@ -16,9 +16,9 @@ This repository implements a unified research framework for comparing
 Retrieval-Augmented Generation, Parameter-Efficient Fine-Tuning, and Hybrid
 Adaptation for low-resource knowledge-intensive language tasks.
 
-The architecture is finalized. Current work is limited to repository foundation
-cleanup before implementation of dataset, preprocessing, retrieval, model,
-evaluation, experiment, or notebook logic.
+The architecture is finalized. The utility foundation is complete before
+implementation of dataset, preprocessing, retrieval, model, evaluation,
+experiment, or notebook logic.
 
 ---
 
@@ -32,7 +32,7 @@ evaluation, experiment, or notebook logic.
 | Documentation | Completed | 100% |
 | Configuration | Completed | 100% |
 | Repository Hygiene | Completed | 100% |
-| Utility Foundation | In Progress | 40% |
+| Utility Foundation | Completed | 100% |
 | Dataset Pipeline | Not Started | 0% |
 | Preprocessing | Not Started | 0% |
 | Retrieval Pipeline | Not Started | 0% |
@@ -74,12 +74,10 @@ Completed:
 
 - `src/utils/config.py`
 - `src/utils/logger.py`
-
-Pending:
-
 - `src/utils/io.py`
 - `src/utils/seed.py`
 - `src/utils/constants.py`
+- Utility unit tests for constants, I/O, and seed/device behavior
 
 ---
 
@@ -120,20 +118,22 @@ Execution targets:
 
 # Next Action
 
-After review approval, continue the utility layer in this order:
+After review approval, begin the dataset layer in this order:
 
-1. `src/utils/io.py`
-2. `src/utils/seed.py`
-3. `src/utils/constants.py`
+1. `src/datasets/downloader.py`
+2. `src/datasets/validator.py`
+3. `src/datasets/loader.py`
 
-Do not implement dataset, preprocessing, retrieval, model, evaluation,
-experiment, or notebook modules until the utility foundation is approved.
+Do not implement preprocessing, retrieval, model, evaluation, experiment, or
+notebook logic until the dataset layer contracts are stable.
 
 ---
 
 # Known Risks
 
-- Python is not currently available from the local PowerShell command path.
+- The default PowerShell `python` command points to the Windows Store shim in
+  this Codex shell. Focused utility tests passed with
+  `C:\Users\USER\anaconda3\python.exe`.
 - Large experiments will depend on Colab GPU availability.
 - Long-running experiments require careful checkpointing and configuration snapshots.
 
@@ -147,7 +147,7 @@ experiment, or notebook modules until the utility foundation is approved.
 | Documentation | Complete |
 | Configuration | Complete |
 | Environment Metadata | Complete |
-| Utility Foundation | In Progress |
-| Testing | Not Started |
+| Utility Foundation | Complete |
+| Testing | Utility tests added |
 | Experiments | Not Started |
 | Publication Readiness | Planning Complete |

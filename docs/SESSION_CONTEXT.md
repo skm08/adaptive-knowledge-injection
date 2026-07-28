@@ -14,13 +14,13 @@ Repository Foundation Cleanup
 
 Status:
 
-Completed pending user review.
+Utility foundation completed pending user review.
 
 ---
 
 # Current Goal
 
-Prepare the repository for implementation without changing the finalized
+Complete the repository utility foundation without changing the finalized
 architecture.
 
 ---
@@ -33,11 +33,17 @@ Completed:
 
 - `src/utils/config.py`
 - `src/utils/logger.py`
+- `src/utils/io.py`
+- `src/utils/seed.py`
+- `src/utils/constants.py`
+- `tests/test_io.py`
+- `tests/test_seed.py`
+- `tests/test_constants.py`
 
 Next target after review approval:
 
 ```text
-src/utils/io.py
+src/datasets/downloader.py
 ```
 
 ---
@@ -127,20 +133,20 @@ Summarization:
 
 After user review approval:
 
-1. Implement `src/utils/io.py`.
-2. Implement `src/utils/seed.py`.
-3. Implement `src/utils/constants.py`.
-4. Add utility tests.
+1. Implement `src/datasets/downloader.py`.
+2. Implement `src/datasets/validator.py`.
+3. Implement `src/datasets/loader.py`.
 
-Do not implement dataset, preprocessing, retrieval, model, evaluation,
-experiment, or notebook modules before utility approval.
+Do not implement preprocessing, retrieval, model, evaluation, experiment, or
+notebook modules before dataset contracts are stable.
 
 ---
 
 # Outstanding Issues
 
-- Local `python` and `py` commands are not available from the current PowerShell
-  path, so Python-based validation could not be executed locally.
+- The default PowerShell `python` command points to the Windows Store shim in
+  this Codex shell. Focused utility tests passed with
+  `C:\Users\USER\anaconda3\python.exe`.
 
 ---
 
@@ -149,6 +155,6 @@ experiment, or notebook modules before utility approval.
 At the beginning of the next session:
 
 1. Read the required repository documentation.
-2. Confirm the user has approved foundation cleanup.
-3. Continue with `src/utils/io.py` only if approved.
+2. Confirm the user has approved the utility foundation.
+3. Continue with `src/datasets/downloader.py` only if approved.
 4. Preserve the finalized architecture.

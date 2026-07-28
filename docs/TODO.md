@@ -73,13 +73,14 @@ Completed:
 
 - [x] `src/utils/config.py`
 - [x] `src/utils/logger.py`
+- [x] `src/utils/io.py`
+- [x] `src/utils/seed.py`
+- [x] `src/utils/constants.py`
+- [x] Utility module tests added
 
-Next after review approval:
+Validation:
 
-- [ ] `src/utils/io.py`
-- [ ] `src/utils/seed.py`
-- [ ] `src/utils/constants.py`
-- [ ] Utility module tests
+- [x] Focused utility pytest suite passed in the local Anaconda environment.
 
 ---
 
@@ -149,5 +150,5 @@ finalized architecture.
 
 Current status:
 
-- Foundation cleanup complete.
-- Awaiting review before continuing with `src/utils/io.py`.
+- Utility foundation implementation complete.
+- Awaiting review before continuing with `src/datasets/downloader.py`.

@@ -44,6 +44,12 @@ Use the following categories whenever possible:
 * Added `.gitkeep` files for documented artifact directories, including
   `outputs/metrics/`.
 * Restored `src/utils/logger.py` as the centralized logging utility.
+* Added `src/utils/io.py` with pathlib-based text, JSON, YAML, copy, listing,
+  and configuration snapshot helpers.
+* Added `src/utils/seed.py` with deterministic seed helpers and automatic
+  CPU/GPU device resolution.
+* Added `src/utils/constants.py` with shared repository constants.
+* Added focused utility tests for I/O, seed/device behavior, and constants.
 
 ## Changed
 

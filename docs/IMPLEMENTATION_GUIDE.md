@@ -5,7 +5,7 @@
 **Purpose:** Primary onboarding and implementation guide for human developers and
 AI assistants.
 
-**Status:** Foundation complete; implementation pending.
+**Status:** Utility foundation complete; dataset implementation pending.
 
 **Last Updated:** 2026-06-28
 
@@ -478,8 +478,8 @@ aggregation while preserving the lower-layer APIs.
 
 # 5. Module Dependency Graph
 
-The foundational modules are `src/utils/config.py` and `src/utils/logger.py`.
-Future foundational utilities are `io.py`, `seed.py`, and `constants.py`.
+The foundational modules are `src/utils/config.py`, `src/utils/logger.py`,
+`src/utils/io.py`, `src/utils/seed.py`, and `src/utils/constants.py`.
 
 Shared utilities sit below all research modules:
 
@@ -1007,16 +1007,17 @@ not implemented.
 
 Remaining work:
 
-Complete the utility layer, then implement each package in the documented order
-with tests and integration checkpoints. Add configuration validation early.
-Build synthetic smoke tests before running large datasets. Keep documentation
-updated as implementation decisions become concrete.
+The utility layer is complete. Next, implement each package in the documented
+order with tests and integration checkpoints. Add configuration validation
+early. Build synthetic smoke tests before running large datasets. Keep
+documentation updated as implementation decisions become concrete.
 
 Implementation readiness:
 
-The repository is ready to begin implementation of the remaining utility
-modules. It is not yet ready for dataset, retrieval, model, evaluation, or
-experiment implementation until the utility layer and its tests are complete.
+The repository is ready to begin dataset-layer implementation after focused
+utility tests are run from the verified local Anaconda environment. It is not
+yet ready for retrieval, model, evaluation, or experiment implementation until
+dataset and preprocessing contracts are stable.
 
 Publication readiness:
 
@@ -1029,7 +1030,7 @@ Scores:
 | Dimension | Score | Assessment |
 | --- | ---: | --- |
 | Architecture | 9/10 | Clear, modular, and research-aligned |
-| Maintainability | 8/10 | Strong standards; implementation still pending |
+| Maintainability | 8/10 | Utility foundation complete; research layers pending |
 | Reproducibility | 8/10 | Good configuration plan; validation/logging still needed |
 | Extensibility | 9/10 | Layered design supports future methods and datasets |
 | Research Readiness | 7/10 | Methodology strong; empirical pipeline not implemented |
