@@ -1,65 +1,354 @@
-# Adaptive Knowledge Injection
+# Adaptive Knowledge Injection for Low-Resource Knowledge-Intensive Language Tasks
 
-Adaptive Knowledge Injection for Low-Resource Knowledge-Intensive Language Tasks
-is a research repository for comparing Retrieval-Augmented Generation (RAG),
-Parameter-Efficient Fine-Tuning (PEFT), and Hybrid Adaptation.
+> **A Unified Framework Integrating Retrieval-Augmented Generation (RAG), Parameter-Efficient Fine-Tuning (PEFT), and Hybrid Adaptation**
 
-The repository targets reproducible Q1-journal experiments for:
+---
 
-- Question Answering: PubMedQA and SciQ
-- Summarization: CNN/DailyMail and GovReport
+## Overview
 
-## Architecture
+This repository contains the official implementation of the research project:
 
-The architecture is documentation-driven and intentionally modular:
+> **Adaptive Knowledge Injection for Low-Resource Knowledge-Intensive Language Tasks: A Unified Framework Integrating Retrieval-Augmented Generation, Parameter-Efficient Fine-Tuning, and Hybrid Adaptation**
 
-```text
+The project investigates how different knowledge injection paradigms improve Large Language Models (LLMs) under **low-resource domain-specific settings**, with a primary focus on:
+
+* Question Answering (QA)
+* Text Summarization
+
+Three knowledge adaptation paradigms are systematically compared:
+
+1. Retrieval-Augmented Generation (RAG)
+2. Parameter-Efficient Fine-Tuning (PEFT)
+3. Hybrid Adaptation (RAG + PEFT)
+
+The study aims to provide a unified benchmark and a novel hybrid framework for efficient domain adaptation in knowledge-intensive language tasks.
+
+---
+
+# Research Objectives
+
+* Compare Retrieval-Augmented Generation and Parameter-Efficient Fine-Tuning under varying data availability.
+* Design a unified hybrid knowledge injection framework.
+* Evaluate robustness across multiple public datasets.
+* Investigate retrieval quality under low-resource conditions.
+* Analyze computational efficiency, scalability, and knowledge adaptation capability.
+
+---
+
+# Research Tasks
+
+## Question Answering
+
+* Domain-specific QA
+* Biomedical QA
+* Scientific QA
+
+## Summarization
+
+* News summarization
+* Government report summarization
+
+---
+
+# Repository Structure
+
+```
+adaptive-knowledge-injection/
+
+├── checkpoints/
+├── configs/
+├── data/
+│   ├── raw/
+│   ├── interim/
+│   ├── processed/
+│   └── splits/
+│
+├── docs/
+│
+├── notebooks/
+│
+├── outputs/
+│   ├── logs/
+│   ├── figures/
+│   ├── tables/
+│   ├── predictions/
+│   └── reports/
+│
+├── scripts/
+│
+├── src/
+│   ├── datasets/
+│   ├── preprocessing/
+│   ├── retrieval/
+│   ├── models/
+│   ├── evaluation/
+│   ├── experiments/
+│   └── utils/
+│
+├── tests/
+│
+├── README.md
+├── requirements.txt
+└── environment.yml
+```
+
+---
+
+# Experimental Pipeline
+
+```
+Public Datasets
+
+        │
+
+        ▼
+
+Dataset Download
+
+        │
+
+        ▼
+
+Preprocessing
+
+        │
+
+        ▼
+
+Low-Resource Sampling
+
+        │
+
+        ▼
+
+──────────────────────────────────────
+
+RAG
+
+PEFT
+
+Hybrid
+
+──────────────────────────────────────
+
+        │
+
+        ▼
+
+Evaluation
+
+        │
+
+        ▼
+
+Statistical Analysis
+
+        │
+
+        ▼
+
+Paper Figures & Tables
+```
+
+---
+
+# Public Datasets
+
+Question Answering
+
+* PubMedQA
+* SciQ
+
+Summarization
+
+* CNN/DailyMail
+* GovReport
+
+Additional datasets are out of scope for the active benchmark unless a future
+documented research decision expands the configuration.
+
+---
+
+# Model Architecture
+
+## Retrieval-Augmented Generation
+
+* Dense Retrieval
+* Sparse Retrieval
+* Hybrid Retrieval
+* FAISS Vector Database
+* Cross-Encoder Reranking
+
+---
+
+## Parameter-Efficient Fine-Tuning
+
+* LoRA
+* QLoRA
+* 4-bit Quantization
+
+---
+
+## Hybrid Adaptation
+
+The proposed framework integrates:
+
+* External knowledge retrieval
+* Parameter-efficient adaptation
+* Dynamic knowledge injection
+
+---
+
+# Evaluation Metrics
+
+## Question Answering
+
+* Exact Match (EM)
+* F1 Score
+* BERTScore
+
+---
+
+## Summarization
+
+* ROUGE-1
+* ROUGE-2
+* ROUGE-L
+* BLEU
+* BERTScore
+
+---
+
+## Retrieval
+
+* Recall@k
+* Mean Reciprocal Rank (MRR)
+* Mean Average Precision (MAP)
+* nDCG
+
+---
+
+## Hallucination
+
+* Faithfulness
+* Context Precision
+* Context Recall
+
+---
+
+## Statistical Analysis
+
+* Paired t-test
+* Wilcoxon Signed-Rank Test
+* Bootstrap Confidence Interval
+* Cohen's d Effect Size
+
+---
+
+# Configuration Files
+
+All experiments are fully configuration-driven.
+
+```
 configs/
-src/utils/
-src/datasets/
-src/preprocessing/
-src/retrieval/
-src/models/
-src/evaluation/
-src/experiments/
-notebooks/
+
+datasets.yaml
+
+preprocessing.yaml
+
+models.yaml
+
+retrieval.yaml
+
+training.yaml
+
+evaluation.yaml
 ```
 
-Business logic belongs in `src/`. Notebooks are reserved for execution,
-visualization, and analysis.
+---
 
-## Configuration
+# Reproducibility
 
-All configurable values are stored in YAML files under `configs/`.
+The project emphasizes reproducible research by providing:
 
-- `datasets.yaml`: dataset registry, data paths, splits, low-resource ratios
-- `preprocessing.yaml`: cleaning, filtering, tokenization, output validation
-- `models.yaml`: generator model, quantization, generation settings
-- `retrieval.yaml`: chunking, embedding, reranking, vector store, top-k
-- `training.yaml`: seed, optimizer, scheduler, batch sizes, LoRA settings
-- `evaluation.yaml`: task, retrieval, hallucination, efficiency, statistics metrics
+* Fixed random seeds
+* Configuration-based experiments
+* Version-controlled datasets
+* Deterministic preprocessing
+* Standardized evaluation protocols
+* Comprehensive experiment logging
 
-## Current Status
+---
 
-The repository foundation is being prepared before implementation of dataset,
-retrieval, model, evaluation, and experiment modules. See `docs/PROJECT_STATUS.md`
-and `docs/TODO.md` for the active roadmap.
+# Development Workflow
 
-## Installation
+1. Configure experiments using YAML files.
+2. Prepare datasets.
+3. Build retrieval index.
+4. Train PEFT models.
+5. Build Hybrid framework.
+6. Execute benchmark experiments.
+7. Perform statistical analysis.
+8. Generate publication-ready figures and tables.
 
-For local Conda development:
+---
 
-```bash
-conda env create -f environment.yml
-conda activate adaptive-knowledge-injection
-```
+# Planned Repository Modules
 
-For pip-based environments:
+* Dataset Management
+* Text Preprocessing
+* Retrieval Pipeline
+* RAG Framework
+* PEFT Framework
+* Hybrid Framework
+* Evaluation Toolkit
+* Experiment Manager
+* Statistical Analysis
+* Visualization
 
-```bash
-pip install -r requirements.txt
-```
+---
 
-## License
+# Hardware
 
-This project is released under the MIT License. See `LICENSE`.
+Primary development environment:
+
+* Google Colab Pro / Pro+
+* NVIDIA T4 / L4 / A100 (when available)
+
+The framework is designed to support scalable execution on higher-end GPUs without major code modifications.
+
+---
+
+# Project Status
+
+**Current Phase**
+
+Research Infrastructure Development
+
+---
+
+# Citation
+
+A citation entry will be added after the manuscript is accepted for publication.
+
+---
+
+# License
+
+The license will be specified prior to the public release of the repository.
+
+---
+
+# Acknowledgements
+
+This project builds upon the open-source ecosystems of:
+
+* Hugging Face
+* PyTorch
+* PEFT
+* Transformers
+* FAISS
+* LangChain
+* Sentence Transformers
+
+Their contributions to the machine learning community are gratefully acknowledged.
